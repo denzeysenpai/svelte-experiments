@@ -1,38 +1,9 @@
-# sv
+# Drag and Drop Logic
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+There will be 2 components, there is the card component, and the "holder" component, the card component can be selected by holding down click (or pressing if on touchscreen) on the card, then can be dragged and then dropped inside a holder.
 
-## Creating a project
+The card component has to be able to switch from one holder to another smoothly, my approach is to give the card 3 states, dropped, lifted, and stationed. Lifted state means the card is being moved around by the user using the pointer, in this state the card isn't a child of any holder, it belongs in the main DOM (or parent DOM), when a user releases a card, the card will have a state of 'Dropped', which then checks if it is a valid drop or not, a valid drop will mean that the card was dropped over a holder, an invalid dropped would mean that the card was dropped outside a holder, where in this case would return the card to its previous parent (holder). Then there is the 'Stationed' state, where the card is stationed or held inside a holder, this state will be active after and before drag and drop process, which means the state cycle of a card is Stationed |> Lifted |> Dropped |> Stationed.
 
-If you're seeing this, you've probably already done this step. Congrats!
+The holder component will be 'communicating' with the card component, the holder will have 2 states, Active state and Passive state, when a card is lifted and hovered over a holder, the holder will be in its Active state, in this state the holder will check what card the user is lifting and prepare for when the card id dropped, if its dropped then it adds it as its child, then goes back to Passive State.
 
-```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+The user will also have 2 states, that is the Holding state and Normal state, when a user is lifting a card, the user is in Holding state, when the user is in this state, it tells the holders to become Active, without this state, a normal hover would place the holder into Active state, then there is Normal state, which is the normal movements of a user.
