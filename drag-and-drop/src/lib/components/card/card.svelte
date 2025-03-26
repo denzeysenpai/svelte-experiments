@@ -26,8 +26,6 @@
 		border: 1px solid gray;
 		padding: 10px;
 		min-width: 300px;
-		* {
-			user-select: none;
-		}
+		user-select: none;
 	}
 </style>

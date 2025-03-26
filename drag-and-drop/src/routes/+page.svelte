@@ -108,6 +108,7 @@
 		{/each}
 	</div>
 </div>
+
 {#if userIsHoldingSomething && User.holding}
 	<div class="held-card" id="">
 		<Card
@@ -136,5 +137,6 @@
 		position: absolute;
 		inset: 0;
 		width: 300px;
+		pointer-events: none;
 	}
 </style>
