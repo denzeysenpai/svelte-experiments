@@ -110,7 +110,7 @@
 </div>
 
 {#if userIsHoldingSomething && User.holding}
-	<div class="held-card" id="">
+	<div class="held-card {userIsHoldingSomething && User.holding ? 'active' : ''}" id="">
 		<Card
 			id={User.holding.id}
 			description={User.holding.description}
@@ -135,8 +135,13 @@
 	}
 	.held-card {
 		position: absolute;
-		inset: 0;
+		inset: -1000;
 		width: 300px;
 		pointer-events: none;
+		opacity: 0;
+
+		&.active {
+			opacity: 1;
+		}
 	}
 </style>

@@ -62,6 +62,8 @@
 		flex-direction: column;
 		padding: 10px;
 		background-color: rgb(65, 75, 85);
+		width: 300px;
+		height: fit-content;
 		.cards-container {
 			background-color: rgb(50, 50, 50);
 			display: flex;

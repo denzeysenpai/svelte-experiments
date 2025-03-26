@@ -25,7 +25,7 @@
 		margin: 10px;
 		border: 1px solid gray;
 		padding: 10px;
-		min-width: 300px;
+		width: auto;
 		user-select: none;
 	}
 </style>
