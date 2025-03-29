@@ -10,6 +10,8 @@ export const User = (function(){
     let current_state : UserState = $state(UserState.NORMAL);
     let holding: CardClass | undefined = $state(undefined)
     let dropCardFunction : any = $state(()=>{})
+    let aHolderIsActive : boolean = $state(false);
+    let cancelFunc : any = $state()
 
     return {
         get current_state() {
@@ -28,11 +30,26 @@ export const User = (function(){
             holding = undefined
             dropCardFunction();
         },
-        get isHoldingSomething() {
+        get isHoldingACard() {
             return holding != undefined
         },
         onValidDropDo(func : any) {
             dropCardFunction = func
         },
+        isInsideAHolder() {
+            aHolderIsActive = true;
+        },
+        leftAHolder() {
+            aHolderIsActive = false;
+        },
+        get aHolderIsActive() {return aHolderIsActive},
+        set cancelFunc(func : any) {
+            cancelFunc = func
+        },
+        hasCancelled() {
+            console.log("CANCELLED")
+            cancelFunc()
+            cancelFunc = undefined;
+        }
     }
 }())

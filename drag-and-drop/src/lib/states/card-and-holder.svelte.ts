@@ -31,6 +31,11 @@ export class CardClass {
         this.previous_parent = this.current_parent
         this.current_parent = parentId
     }
+    public ReturnToPreviousHolder() {
+        const temp = this.current_parent;
+        this.current_parent = this.previous_parent;
+        this.previous_parent = temp
+    }
 }
 
 export class HolderClass {

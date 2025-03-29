@@ -67,7 +67,7 @@
 			cards: []
 		}
 	];
-	let userIsHoldingSomething = $derived(User.isHoldingSomething);
+	let userisHoldingACard = $derived(User.isHoldingACard);
 
 	onMount(() => {
 		setTimeout(() => {});
@@ -88,7 +88,7 @@
 			holder_objects.push(holder_obj);
 		});
 		document.addEventListener('mousemove', (mouse) => {
-			if (userIsHoldingSomething) {
+			if (userisHoldingACard) {
 				const x = mouse.clientX;
 				const y = mouse.clientY;
 				const card = document.querySelector('.held-card') as HTMLDivElement;
@@ -109,8 +109,8 @@
 	</div>
 </div>
 
-{#if userIsHoldingSomething && User.holding}
-	<div class="held-card {userIsHoldingSomething && User.holding ? 'active' : ''}" id="">
+{#if userisHoldingACard && User.holding}
+	<div class="held-card {userisHoldingACard && User.holding ? 'active' : ''}" id="">
 		<Card
 			id={User.holding.id}
 			description={User.holding.description}
