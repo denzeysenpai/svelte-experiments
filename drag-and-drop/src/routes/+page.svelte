@@ -145,4 +145,8 @@
 			opacity: 1;
 		}
 	}
+
+	* {
+		scrollbar-width: thin;
+	}
 </style>
