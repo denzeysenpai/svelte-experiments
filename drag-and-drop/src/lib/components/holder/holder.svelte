@@ -18,13 +18,15 @@
 			}
 		});
 	});
+
+	let validHover: boolean = $state(false);
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <!-- svelte-ignore event_directive_deprecated -->
 <!-- svelte-ignore a11y_mouse_events_have_key_events -->
 <div
-	class="holder"
+	class="holder {validHover ? 'hovered' : ''}"
 	on:mouseup={() => {
 		if (obj.isActive && User.isHoldingACard && User.holding) {
 			console.log(User.holding.title + ' moved to ' + obj.title);
@@ -47,11 +49,11 @@
 	on:mouseover={() => {
 		holder_objects.forEach((holder) => {
 			if (User.holding) {
-				if (!holder.cards.includes(User.holding)) {
-					User.isInsideAHolder();
-				} else {
-					User.leftAHolder();
-				}
+				validHover = true;
+				if (!holder.cards.includes(User.holding)) User.isInsideAHolder();
+				else User.leftAHolder();
+			} else {
+				validHover = false;
 			}
 		});
 
@@ -60,10 +62,16 @@
 	on:mouseleave={() => {
 		obj.Passive();
 		User.leftAHolder();
+		validHover = false;
 	}}
 >
 	<input type="text" bind:value={obj.title} />
 	<div class="cards-container">
+		{#if validHover}
+			<div class="placeholder">
+				<p>Push to bottom here</p>
+			</div>
+		{/if}
 		{#if obj.cards}
 			{#each obj.cards as card}
 				<Card
@@ -88,7 +96,9 @@
 		background-color: rgb(65, 75, 85);
 		width: 300px;
 		height: 400px;
+		border: 3px solid rgb(65, 75, 85);
 		border-radius: 20px;
+		transition: all 0.2s ease;
 		input {
 			border-radius: 10px;
 			padding: 10px;
@@ -99,10 +109,27 @@
 		}
 		.cards-container {
 			overflow-y: auto;
-			background-color: rgb(50, 50, 50);
+			background-color: rgba(3, 3, 42, 0.209);
 			display: flex;
 			border-radius: 8px;
 			flex-direction: column;
+
+			.placeholder {
+				content: '';
+				background-color: rgba(255, 255, 255, 0.245);
+				margin: 10px;
+				border-radius: 10px;
+				padding: 20px;
+				border: 6px solid rgba(255, 255, 255, 0.461);
+
+				p {
+					text-align: center;
+				}
+			}
+		}
+		&.hovered {
+			border: 3px solid rgb(73, 194, 255);
+			box-shadow: 0 0 10px rgb(73, 194, 255);
 		}
 	}
 </style>

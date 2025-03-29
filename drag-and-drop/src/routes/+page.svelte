@@ -139,6 +139,7 @@
 		width: 300px;
 		pointer-events: none;
 		opacity: 0;
+		transform: rotate(5deg);
 
 		&.active {
 			opacity: 1;
