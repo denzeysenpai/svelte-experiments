@@ -1,0 +1,9 @@
+# Drag and Drop Logic
+
+There will be 2 components, there is the card component, and the "holder" component, the card component can be selected by holding down click (or pressing if on touchscreen) on the card, then can be dragged and then dropped inside a holder.
+
+The card component has to be able to switch from one holder to another smoothly, my approach is to give the card 3 states, dropped, lifted, and stationed. Lifted state means the card is being moved around by the user using the pointer, in this state the card isn't a child of any holder, it belongs in the main DOM (or parent DOM), when a user releases a card, the card will have a state of 'Dropped', which then checks if it is a valid drop or not, a valid drop will mean that the card was dropped over a holder, an invalid dropped would mean that the card was dropped outside a holder, where in this case would return the card to its previous parent (holder). Then there is the 'Stationed' state, where the card is stationed or held inside a holder, this state will be active after and before drag and drop process, which means the state cycle of a card is Stationed |> Lifted |> Dropped |> Stationed.
+
+The holder component will be 'communicating' with the card component, the holder will have 2 states, Active state and Passive state, when a card is lifted and hovered over a holder, the holder will be in its Active state, in this state the holder will check what card the user is lifting and prepare for when the card id dropped, if its dropped then it adds it as its child, then goes back to Passive State.
+
+The user will also have 2 states, that is the Holding state and Normal state, when a user is lifting a card, the user is in Holding state, when the user is in this state, it tells the holders to become Active, without this state, a normal hover would place the holder into Active state, then there is Normal state, which is the normal movements of a user.
